@@ -47,7 +47,7 @@ export function TaskCard({ task, categoryId }: TaskCardProps) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent pointer-events-none" />
-      <CardHeader className="p-4 pb-0 flex flex-row items-start justify-between space-y-0">
+      <CardHeader className="p-3 sm:p-4 pb-0 flex flex-row items-start justify-between space-y-0">
         <div className="flex items-start gap-2">
           <Checkbox
             checked={task.completed}
@@ -88,10 +88,10 @@ export function TaskCard({ task, categoryId }: TaskCardProps) {
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="p-4 pt-2">
+      <CardContent className="p-3 sm:p-4 pt-2">
         <p className={cn("text-sm text-muted-foreground", task.completed ? "line-through" : "")}>{task.description}</p>
       </CardContent>
-      <CardFooter className="p-4 pt-0 flex justify-between">
+      <CardFooter className="p-3 sm:p-4 pt-0 flex justify-between">
         <div className="flex items-center gap-1">
           <span
             className={cn(

@@ -78,7 +78,7 @@ export function TaskForm({ categoryId, task, onClose }: TaskFormProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -101,7 +101,7 @@ export function TaskForm({ categoryId, task, onClose }: TaskFormProps) {
                 <X className="h-4 w-4" />
               </Button>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-3 sm:space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Task Name</Label>
                 <Input
@@ -151,7 +151,7 @@ export function TaskForm({ categoryId, task, onClose }: TaskFormProps) {
                 <RadioGroup
                   value={priority}
                   onValueChange={(value) => setPriority(value as Priority)}
-                  className={cn("flex", isMobile ? "flex-col gap-2" : "")}
+                  className={cn("flex flex-wrap gap-2", isMobile ? "flex-col" : "")}
                 >
                   <div className="flex items-center space-x-2 mr-4">
                     <RadioGroupItem
