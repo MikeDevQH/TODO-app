@@ -81,7 +81,7 @@
   }
 
   .button-transition {
-    @apply transition-all duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-md;
+    @apply transition-all duration-200 ease-in-out transform hover:scale-105 hover:shadow-md;
   }
 
   .card-hover {

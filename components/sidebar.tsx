@@ -1,12 +1,13 @@
 "use client"
 
-import { useState } from "react"
-import { Plus, Folder, Trash2, Edit, Check } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Plus, Folder, Trash2, Edit, Check, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useTasks } from "@/components/tasks-provider"
 import { cn } from "@/lib/utils"
+import { Sheet, SheetContent } from "@/components/ui/sheet"
 
 export function Sidebar() {
   const { categories, activeCategory, setActiveCategory, addCategory, deleteCategory, updateCategory } = useTasks()
@@ -15,6 +16,21 @@ export function Sidebar() {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editingName, setEditingName] = useState("")
   const [editingColor, setEditingColor] = useState("")
+  const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+
+    return () => {
+      window.removeEventListener("resize", checkMobile)
+    }
+  }, [])
 
   const COLORS = [
     "#3b82f6", // blue
@@ -48,8 +64,17 @@ export function Sidebar() {
     }
   }
 
-  return (
-    <div className="w-64 border-r bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 h-[calc(100vh-4rem)] flex flex-col shadow-md">
+  const handleCategoryClick = (categoryId: string) => {
+    setActiveCategory(categoryId)
+    if (isMobile) {
+      setIsMobileOpen(false)
+    }
+  }
+
+  const SidebarContent = () => (
+    <div
+      className={cn("w-full h-full flex flex-col bg-background/95 backdrop-blur", isMobile ? "border-r-0" : "border-r")}
+    >
       <div className="p-4 border-b bg-gradient-to-r from-blue-500/10 to-blue-600/10">
         <h2 className="text-lg font-semibold mb-2 gradient-text">Categories</h2>
         {isAdding ? (
@@ -81,14 +106,14 @@ export function Sidebar() {
                 size="sm"
                 variant="outline"
                 onClick={() => setIsAdding(false)}
-                className="flex-1 hover:bg-red-500/10 hover:text-red-500 transition-colors"
+                className="flex-1 hover:bg-red-500/10 hover:text-red-500 transition-colors hover-scale"
               >
                 <Trash2 className="h-4 w-4 mr-1" /> Cancel
               </Button>
               <Button
                 size="sm"
                 onClick={handleAddCategory}
-                className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all"
+                className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all hover-scale"
               >
                 <Check className="h-4 w-4 mr-1" /> Add
               </Button>
@@ -97,7 +122,7 @@ export function Sidebar() {
         ) : (
           <Button
             onClick={() => setIsAdding(true)}
-            className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all button-transition"
+            className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all hover-scale"
           >
             <Plus className="h-4 w-4 mr-2" /> Add Category
           </Button>
@@ -135,14 +160,14 @@ export function Sidebar() {
                       size="sm"
                       variant="outline"
                       onClick={() => setEditingId(null)}
-                      className="flex-1 hover:bg-red-500/10 hover:text-red-500 transition-colors"
+                      className="flex-1 hover:bg-red-500/10 hover:text-red-500 transition-colors hover-scale"
                     >
                       <Trash2 className="h-4 w-4 mr-1" /> Cancel
                     </Button>
                     <Button
                       size="sm"
                       onClick={handleUpdateCategory}
-                      className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all"
+                      className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all hover-scale"
                     >
                       <Check className="h-4 w-4 mr-1" /> Update
                     </Button>
@@ -156,7 +181,7 @@ export function Sidebar() {
                       ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md"
                       : "hover:bg-blue-500/10 text-foreground",
                   )}
-                  onClick={() => setActiveCategory(category.id)}
+                  onClick={() => handleCategoryClick(category.id)}
                 >
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: category.color || "#3b82f6" }} />
@@ -172,7 +197,7 @@ export function Sidebar() {
                     <Button
                       size="icon"
                       variant="ghost"
-                      className="h-7 w-7 hover:bg-white/20 transition-colors"
+                      className="h-7 w-7 hover:bg-white/20 transition-colors hover-scale"
                       onClick={(e) => {
                         e.stopPropagation()
                         startEditing(category.id, category.name, category.color || "#3b82f6")
@@ -183,7 +208,7 @@ export function Sidebar() {
                     <Button
                       size="icon"
                       variant="ghost"
-                      className="h-7 w-7 hover:bg-white/20 transition-colors"
+                      className="h-7 w-7 hover:bg-white/20 transition-colors hover-scale"
                       onClick={(e) => {
                         e.stopPropagation()
                         deleteCategory(category.id)
@@ -198,6 +223,35 @@ export function Sidebar() {
           ))}
         </div>
       </ScrollArea>
+    </div>
+  )
+
+  // Mobile sidebar with Sheet component
+  if (isMobile) {
+    return (
+      <>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden fixed left-4 bottom-4 z-50 rounded-full w-12 h-12 bg-blue-600 text-white shadow-lg hover-scale"
+          onClick={() => setIsMobileOpen(true)}
+        >
+          <Menu className="h-6 w-6" />
+        </Button>
+
+        <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>
+          <SheetContent side="left" className="p-0 w-[280px] sm:w-[320px]">
+            <SidebarContent />
+          </SheetContent>
+        </Sheet>
+      </>
+    )
+  }
+
+  // Desktop sidebar
+  return (
+    <div className="hidden md:block w-64 h-[calc(100vh-4rem)] shadow-md">
+      <SidebarContent />
     </div>
   )
 }

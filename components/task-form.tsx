@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { type Task, type Priority, useTasks } from "@/components/tasks-provider"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -40,6 +40,20 @@ export function TaskForm({ categoryId, task, onClose }: TaskFormProps) {
   const [date, setDate] = useState<Date | undefined>(task?.date ? new Date(task.date) : new Date())
   const [priority, setPriority] = useState<Priority>(task?.priority || "medium")
   const [color, setColor] = useState(task?.color || COLORS[0])
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+
+    return () => {
+      window.removeEventListener("resize", checkMobile)
+    }
+  }, [])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -70,8 +84,9 @@ export function TaskForm({ categoryId, task, onClose }: TaskFormProps) {
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className="w-full max-w-md"
       >
-        <Card className="w-full max-w-md modern-shadow border-blue-500/20">
+        <Card className="w-full modern-shadow border-blue-500/20">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent pointer-events-none rounded-lg" />
           <form onSubmit={handleSubmit}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -81,7 +96,7 @@ export function TaskForm({ categoryId, task, onClose }: TaskFormProps) {
                 variant="ghost"
                 size="icon"
                 onClick={onClose}
-                className="hover:bg-red-500/10 hover:text-red-500 transition-colors"
+                className="hover:bg-red-500/10 hover:text-red-500 transition-colors hover-scale"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -124,14 +139,20 @@ export function TaskForm({ categoryId, task, onClose }: TaskFormProps) {
                       {date ? format(date, "PPP") : <span>Pick a date</span>}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0">
-                    <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <div className="p-0 bg-background rounded-md shadow-md border border-border">
+                      <Calendar mode="single" selected={date} onSelect={setDate} initialFocus className="rounded-md" />
+                    </div>
                   </PopoverContent>
                 </Popover>
               </div>
               <div className="space-y-2">
                 <Label>Priority</Label>
-                <RadioGroup value={priority} onValueChange={(value) => setPriority(value as Priority)} className="flex">
+                <RadioGroup
+                  value={priority}
+                  onValueChange={(value) => setPriority(value as Priority)}
+                  className={cn("flex", isMobile ? "flex-col gap-2" : "")}
+                >
                   <div className="flex items-center space-x-2 mr-4">
                     <RadioGroupItem
                       value="low"
@@ -181,7 +202,7 @@ export function TaskForm({ categoryId, task, onClose }: TaskFormProps) {
             <CardFooter>
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all button-transition"
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all hover-scale"
               >
                 {task ? "Update Task" : "Add Task"}
               </Button>

@@ -23,19 +23,19 @@ export function TasksArea() {
     <div className="flex-1 flex flex-col h-[calc(100vh-4rem)] overflow-hidden">
       {activeCategory ? (
         <>
-          <div className="p-4 border-b flex justify-between items-center bg-gradient-to-r from-blue-500/5 to-blue-600/5">
-            <div className="flex items-center gap-2">
+          <div className="p-4 border-b flex flex-wrap justify-between items-center gap-2 bg-gradient-to-r from-blue-500/5 to-blue-600/5">
+            <div className="flex items-center gap-2 flex-wrap">
               <div className="w-3 h-3 rounded-full" style={{ backgroundColor: activeCategories?.color || "#3b82f6" }} />
               <h2 className="text-xl font-semibold gradient-text">{activeCategories?.name || "Tasks"}</h2>
 
               {/* Task counter */}
-              <div className="ml-2 px-2 py-1 bg-blue-500/10 rounded-md text-xs font-medium text-blue-500">
+              <div className="px-2 py-1 bg-blue-500/10 rounded-md text-xs font-medium text-blue-500">
                 {completedTasks}/{totalTasks} completed
               </div>
             </div>
             <Button
               onClick={() => setIsAddingTask(true)}
-              className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all button-transition"
+              className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all hover-scale"
             >
               <Plus className="h-4 w-4 mr-2" /> Add Task
             </Button>
@@ -53,7 +53,7 @@ export function TasksArea() {
                   <p className="mb-4">No tasks yet. Create your first task!</p>
                   <Button
                     onClick={() => setIsAddingTask(true)}
-                    className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all button-transition"
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all hover-scale"
                   >
                     <Plus className="h-4 w-4 mr-2" /> Add Task
                   </Button>

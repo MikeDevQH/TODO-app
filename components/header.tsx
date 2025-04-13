@@ -10,17 +10,17 @@ export function Header() {
             <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold">
               T
             </div>
-            <h1 className="text-2xl font-bold tracking-tight gradient-text">TaskFlow</h1>
+            <h1 className="text-2xl font-bold tracking-tight gradient-text">SortlyTask</h1>
           </div>
           <div className="flex items-center gap-2">
             <Link
               href="https://github.com/MikeDevQH"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-sm text-muted-foreground hover:text-blue-400 transition-colors button-transition px-3 py-2 rounded-md hover:bg-blue-500/10"
+              className="flex items-center gap-1 text-sm text-muted-foreground hover:text-blue-400 transition-colors hover-scale px-3 py-2 rounded-md hover:bg-blue-500/10"
             >
               <Github className="h-5 w-5" />
-              <span>MikeDevQH</span>
+              <span className="hidden sm:inline">MikeDevQH</span>
             </Link>
           </div>
         </div>
