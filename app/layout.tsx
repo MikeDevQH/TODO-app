@@ -9,7 +9,6 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "TaskFlow - Modern Todo App",
   description: "A minimalist todo app for organizing your tasks",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
