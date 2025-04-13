@@ -233,14 +233,14 @@ export function Sidebar() {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden fixed left-4 bottom-4 z-50 rounded-full w-12 h-12 bg-blue-600 text-white shadow-lg hover-scale"
+          className="md:hidden fixed left-3 bottom-3 z-50 rounded-full w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 text-white shadow-lg hover-scale"
           onClick={() => setIsMobileOpen(true)}
         >
           <Menu className="h-6 w-6" />
         </Button>
 
         <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>
-          <SheetContent side="left" className="p-0 w-[280px] sm:w-[320px]">
+          <SheetContent side="left" className="p-0 w-[260px] sm:w-[320px]">
             <SidebarContent />
           </SheetContent>
         </Sheet>

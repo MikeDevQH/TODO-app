@@ -105,7 +105,7 @@ export function CongratulationsModal({ isOpen, onClose }: CongratulationsModalPr
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
           <canvas
             ref={canvasRef}
             className="fixed inset-0 z-50 pointer-events-none"
@@ -141,11 +141,11 @@ export function CongratulationsModal({ isOpen, onClose }: CongratulationsModalPr
                   transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.5 }}
                   className="flex justify-center"
                 >
-                  <div className="p-4 rounded-full bg-blue-500/10">
-                    <PartyPopper className="h-16 w-16 text-blue-500" />
+                  <div className="p-3 sm:p-4 rounded-full bg-blue-500/10">
+                    <PartyPopper className="h-12 w-12 sm:h-16 sm:w-16 text-blue-500" />
                   </div>
                 </motion.div>
-                <p className="text-lg">You've completed all tasks in this category!</p>
+                <p className="text-base sm:text-lg">You've completed all tasks in this category!</p>
                 <p className="text-muted-foreground">Great job staying organized and productive.</p>
               </CardContent>
               <CardFooter className="flex justify-center pb-6">
