@@ -7,8 +7,11 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "TaskFlow - Modern Todo App",
+  title: "SortlyTask - Modern Todo App",
   description: "A minimalist todo app for organizing your tasks",
+  icons: {
+    icon: '/favicon.png',
+  },
 }
 
 export default function RootLayout({
