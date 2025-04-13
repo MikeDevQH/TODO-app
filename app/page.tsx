@@ -7,8 +7,8 @@ import { AnimatedBackground } from "@/components/animated-background"
 export default function Home() {
   return (
     <TasksProvider>
-      <div className="flex flex-col min-h-screen bg-background">
-        <AnimatedBackground />
+      <AnimatedBackground />
+      <div className="flex flex-col min-h-screen bg-background/50 backdrop-blur-[1px]">
         <Header />
         <div className="flex flex-1 overflow-hidden">
           <Sidebar />
