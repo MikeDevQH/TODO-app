@@ -20,7 +20,7 @@ export function TasksArea() {
   const completedTasks = activeCategories?.tasks.filter((task) => task.completed).length || 0
 
   return (
-    <div className="flex-1 flex flex-col h-[calc(100vh-4rem)] overflow-hidden">
+    <div className="flex-1 flex flex-col h-[calc(100vh-3.5rem)] overflow-hidden">
       {activeCategory ? (
         <>
           <div className="p-4 border-b flex flex-wrap justify-between items-center gap-2 bg-gradient-to-r from-blue-500/5 to-blue-600/5">
