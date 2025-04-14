@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "SortlyTask - Modern Todo App",
   description: "A minimalist todo app for organizing your tasks",
   icons: {
-    icon: '/favicon.png',
+    icon: "/favicon.png",
   },
 }
 
@@ -21,14 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} dark`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+      <body className={inter.className}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
         </ThemeProvider>
       </body>
     </html>
   )
 }
-
-
-import './globals.css'
