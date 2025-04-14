@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Github } from "lucide-react"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export function Header() {
   return (
@@ -13,6 +14,7 @@ export function Header() {
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight gradient-text">SortlyTask</h1>
           </div>
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Link
               href="https://github.com/MikeDevQH"
               target="_blank"
