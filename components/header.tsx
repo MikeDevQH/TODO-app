@@ -8,9 +8,7 @@ export function Header() {
       <div className="flex h-14 sm:h-16 items-center px-3 sm:px-4 md:px-6">
         <div className="flex flex-1 items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold">
-              T
-            </div>
+            <img src="/logo.png" alt="" className="w-8 h-8" />
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight gradient-text">SortlyTask</h1>
           </div>
           <div className="flex items-center gap-2">
